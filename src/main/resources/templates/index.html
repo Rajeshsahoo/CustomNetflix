@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CustomNetflix</title>
+    <link rel="stylesheet" th:href="@{/css/netflix-style.css}"/>
+</head>
+<body>
+
+<!-- Navigation bar -->
+<header class="navbar">
+    <div class="navbar-left">
+        <a class="logo" href="/">CUSTOMNETFLIX</a>
+        <nav class="nav-links">
+            <a href="/">Home</a>
+            <a href="/">TV Shows</a>
+            <a href="/">Movies</a>
+            <a href="/">New &amp; Popular</a>
+            <a href="/">My List</a>
+        </nav>
+    </div>
+    <div class="navbar-right">
+        <span class="icon-search">&#128269;</span>
+        <span class="nav-text">Kids</span>
+        <span class="icon-bell">&#128276;</span>
+        <span class="avatar"></span>
+    </div>
+</header>
+
+<!-- Hero / featured banner -->
+<section class="hero" th:style="'background-image: linear-gradient(to top, #141414 0%, rgba(20,20,20,0.4) 50%, rgba(20,20,20,0.6) 100%), url(' + ${featured.imageUrl} + ')'">
+    <div class="hero-content">
+        <h1 class="hero-title" th:text="${featured.title}">Featured Title</h1>
+        <div class="hero-meta">
+            <span class="badge" th:text="${featured.rating}">TV-14</span>
+            <span th:text="${featured.year}">2025</span>
+            <span th:text="${featured.duration}">2 Seasons</span>
+        </div>
+        <p class="hero-description" th:text="${featured.description}">Featured description.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-play">&#9654; Play</button>
+            <button class="btn btn-info">&#9432; More Info</button>
+        </div>
+    </div>
+</section>
+
+<!-- Content rows -->
+<main class="rows">
+    <section class="row" th:each="row : ${contentRows}">
+        <h2 class="row-title" th:text="${row.category}">Category</h2>
+        <div class="row-cards">
+            <div class="card" th:each="movie : ${row.movies}">
+                <img class="card-img" th:src="${movie.imageUrl}" th:alt="${movie.title}"/>
+                <div class="card-overlay">
+                    <h3 class="card-title" th:text="${movie.title}">Title</h3>
+                    <div class="card-meta">
+                        <span class="badge" th:text="${movie.rating}">TV-14</span>
+                        <span th:text="${movie.year}">2025</span>
+                        <span th:text="${movie.duration}">1h 30m</span>
+                    </div>
+                    <p class="card-desc" th:text="${movie.description}">Description</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 CustomNetflix. A demo Spring Boot application.</p>
+</footer>
+
+</body>
+</html>
